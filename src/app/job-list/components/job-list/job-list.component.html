@@ -1,35 +1,42 @@
-<p>job-list works!</p>
-
-<div class="mb-4 bg-red-500">
+<div *ngIf="filtros.length >0" class="bg-white w-11/12 max-w-5xl rounded-md mt-[-4rem] md:-mt-20 mx-auto mb-8 py-3 px-4 sm:px-6 shadow-md">
     <app-table-filter [filtros]="filtros" (nueva)="actualizar($event)"></app-table-filter>
 </div>
 
-<div *ngIf="jobs">
-    <div *ngFor="let job of jobs">
-        <p>{{ job.position  }}</p>
-        <div>
-            <!-- <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
-            (click)="filterByRole(job.role)"> {{job.role}} </button>
-    
-            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
-            (click)="filterByLevel(job.level)"> {{job.level}} </button>
-            
-            <button *ngFor="let l of job.languages" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
-            (click)="filterByLangueages(l)"> {{l}} </button>
-            
-            <button *ngFor="let t of job.tools" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
-            (click)="filterByLangueages(t)"> {{t}} </button> -->
 
-            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+<div *ngIf="jobs" class="w-11/12 max-w-5xl mx-auto ">
+    <div *ngFor="let job of jobs" class="bg-white shadow-md p-4 mb-12 rounded-md items-center min-[800px]:flex " [ngClass]="job.featured ? ' border-primary border-l-4':''">
+        <div class=" min-[800px]:w-1/2">
+            <div class=" inline-block align-middle -mt-10 mb-2 lg:mt-0 ">
+                <img [src]="job.logo" [alt]="'logo de la compañia '+ job.company" class="w-14 lg:w-20 ">
+            </div>
+            <div class=" align-middle lg:inline-block lg:ml-6">
+                <div class="mb-2">
+                    <span class="text-primary font-bold mr-6"> {{ job.company }} </span>
+                    <span *ngIf="job.new" class="bg-primary text-white text-sm font-bold rounded-r-full rounded-l-full py-1 px-2 mr-2">NEW!</span>
+                    <span *ngIf="job.featured" class="bg-featured text-white text-sm font-bold rounded-r-full rounded-l-full py-1 px-2">{{'featured!' | uppercase}}</span>
+                </div>
+                <div class="border-b min-[800px]:border-b-0">
+                    <p class="text-featured font-bold mb-2"> {{ job.position }} </p>
+                    <ul class="flex gap-8 text-published mb-4">
+                        <li> {{job.postedAt}} </li>
+                        <li class="list-disc"> {{job.contract}} </li>
+                        <li class="list-disc"> {{job.location}} </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pt-3 min-[800px]:w-1/2">
+
+            <button class="inline-block hover:bg-primary hover:text-white transition-colors text-primary font-bold rounded-md bg-f-tablets p-2 mr-4 mb-2"
             (click)="general(job.role)"> {{job.role}} </button>
     
-            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            <button class="inline-block hover:bg-primary hover:text-white transition-colors text-primary font-bold rounded-md bg-f-tablets p-2 mr-4 mb-2"
             (click)="general(job.level)"> {{job.level}} </button>
             
-            <button *ngFor="let l of job.languages" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            <button *ngFor="let l of job.languages" class="inline-block hover:bg-primary hover:text-white transition-colors text-primary font-bold rounded-md bg-f-tablets p-2 mr-4 mb-2"
             (click)="general(l)"> {{l}} </button>
             
-            <button *ngFor="let t of job.tools" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            <button *ngFor="let t of job.tools" class="inline-block hover:bg-primary hover:text-white transition-colors text-primary font-bold rounded-md bg-f-tablets p-2 mr-4 mb-2"
             (click)="general(t)"> {{t}} </button>            
             
         </div>

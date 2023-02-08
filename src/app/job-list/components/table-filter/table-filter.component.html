@@ -1,10 +1,13 @@
-<p>table-filter works!</p>
-<div *ngIf="filtros.length > 0">
-    <div *ngFor="let filtro of filtros" class="inline-block">
-        <button  class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2">
-             {{filtro}} 
+<div *ngIf="filtros.length > 0" class="flex items-center justify-between ">
+    <div class="w-[90%] flex flex-wrap gap-3">
+        <div *ngFor="let filtro of filtros" class="flex items-center  rounded-md mr-2">
+            <span  class="inline-block text-center bg-f-tablets text-primary font-bold rounded-md py-1 px-2 ">
+                 {{filtro}} 
+            </span>
+            <button class="py-2 px-2 hover:bg-featured transition-colors rounded-r-md bg-primary" (click)="borrarFiltro(filtro)" > 
+                <img src="assets/images/icon-remove.svg" alt="x para cerrar" class="block">    
             </button>
-        <button (click)="borrarFiltro(filtro)" > x </button>
+        </div>
     </div>
-    <button (click)="borrarFiltro('')" >clear</button>
+     <button class="block w-[10%] " (click)="borrarFiltro('')" >clear</button>
 </div>
