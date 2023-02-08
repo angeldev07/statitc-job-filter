@@ -36,9 +36,7 @@ export class JobListComponent implements OnInit {
     this.agregarAlFiltro(filtro)
   }
 
-  get jobsS () {
-    return [...this.jobs];
-  }
+
 
   actualizar(event: any) {
     if(Array.isArray(event))
@@ -48,7 +46,7 @@ export class JobListComponent implements OnInit {
     
     this.jobServices.allJobs.subscribe({next: jobs => this.jobs = jobs})
     this.filtros.forEach( filtro => {
-      this.jobs =  this.jobServices.getGeneralFilter(this.jobsS, filtro);
+      this.jobs =  this.jobServices.getGeneralFilter(this.jobs, filtro);
     })
   }
 
