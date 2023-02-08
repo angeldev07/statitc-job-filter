@@ -1,0 +1,40 @@
+<p>job-list works!</p>
+
+<div class="mb-4 bg-red-500">
+    <app-table-filter [filtros]="filtros" (nueva)="actualizar($event)"></app-table-filter>
+</div>
+
+<div *ngIf="jobs">
+    <div *ngFor="let job of jobs">
+        <p>{{ job.position  }}</p>
+        <div>
+            <!-- <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="filterByRole(job.role)"> {{job.role}} </button>
+    
+            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="filterByLevel(job.level)"> {{job.level}} </button>
+            
+            <button *ngFor="let l of job.languages" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="filterByLangueages(l)"> {{l}} </button>
+            
+            <button *ngFor="let t of job.tools" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="filterByLangueages(t)"> {{t}} </button> -->
+
+            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="general(job.role)"> {{job.role}} </button>
+    
+            <button class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="general(job.level)"> {{job.level}} </button>
+            
+            <button *ngFor="let l of job.languages" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="general(l)"> {{l}} </button>
+            
+            <button *ngFor="let t of job.tools" class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2"
+            (click)="general(t)"> {{t}} </button>            
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- {{ jobs | json }} -->

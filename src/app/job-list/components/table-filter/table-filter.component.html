@@ -1,0 +1,10 @@
+<p>table-filter works!</p>
+<div *ngIf="filtros.length > 0">
+    <div *ngFor="let filtro of filtros" class="inline-block">
+        <button  class="inline-block text-primary font-bold rounded-md bg-f-tablets p-2 m-2">
+             {{filtro}} 
+            </button>
+        <button (click)="borrarFiltro(filtro)" > x </button>
+    </div>
+    <button (click)="borrarFiltro('')" >clear</button>
+</div>
