@@ -8,14 +8,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TableFilterComponent {
   @Input() filtros!: string[];
-  @Output() nueva: EventEmitter<any> = new EventEmitter();
+  @Output() filterDelete: EventEmitter<string[] > = new EventEmitter();
 
-  borrarFiltro( a: string ){
-    if(a == '')
-      this.filtros = []
-    else
-      this.filtros = this.filtros.filter(f => f!=a)
+  borrarFiltro( filterIndex: number ){
     
-    this.nueva.emit(a == '' ? [] : a)
+    if(filterIndex === -1 ){
+      this.filtros.length = 0;
+    }
+    else
+      this.filtros.splice(filterIndex,1); //eliminamos el elemento seleccionado 
+
+    this.filterDelete.emit()
   }
 }
+
+

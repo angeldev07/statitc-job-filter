@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Job } from '../interfaces/job.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +12,12 @@ export class JobService {
     private http: HttpClient
   ) { }
 
-  get allJobs () {
-    return this.http.get('assets/data.json');
+  get allJobs (): Observable<Job[]> {
+    return this.http.get<Job[]>('assets/data.json');
   }
 
-  getFilterJobsByRole( jobs: any, role: string ){
-    return jobs.filter( (job:any) => job.role == role )
-  }
-
-  getFilterJobsByLevel( jobs: any, level: string){
-    return jobs.filter( (job:any) => job.level == level )
-  }
-
-  getFilterJobsByLanguages( jobs: any, language: string){
-    return jobs.filter( (job:any) => job.languages.includes(language) )
-  }
-
-
-  getGeneralFilter( jobs: any, filtro: string) {
-    return jobs.filter( ({role, level, languages, tools }:any) => {
+  getGeneralFilter( jobs: Job[], filtro: string): Job[] {
+    return jobs.filter( ({role, level, languages, tools }) => {
       return (role == filtro || level == filtro || languages.includes(filtro) || tools.includes(filtro)) 
     } )
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../../services/job.service';
-
+import { Job } from '../../interfaces/job.interface';
+import { map } from 'rxjs/operators'
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -9,9 +10,8 @@ import { JobService } from '../../services/job.service';
 })
 export class JobListComponent implements OnInit {
   
-  jobs:any;
-  importante: any;
-  filtros: string[]= [];
+  jobs: Job[] = [];
+  filters: string[]= [];
 
   constructor ( 
     private jobServices: JobService
@@ -19,35 +19,51 @@ export class JobListComponent implements OnInit {
 
   ngOnInit(): void {
     this.jobServices.allJobs.subscribe({
-      next: (job:any) => {
+      next: job => {
         this.jobs = job
       }
     })
   }
 
-  agregarAlFiltro( filtro: string) {
-    if(this.filtros.includes(filtro))
+  agregarAlFiltro( filter: string) {
+    if(this.filters.includes(filter))
       return
-    this.filtros.push(filtro)
+    this.filters.push(filter)
   }
 
-  general(filtro: string) {
-    this.jobs = this.jobServices.getGeneralFilter([...this.jobs], filtro);
-    this.agregarAlFiltro(filtro)
+  general(filter: string) {
+    this.jobs = this.jobServices.getGeneralFilter([...this.jobs], filter);
+    this.agregarAlFiltro(filter)
   }
 
-
-
-  actualizar(event: any) {
-    if(Array.isArray(event))
-      this.filtros = []
-    else
-      this.filtros = this.filtros.filter(f => f!=event)
+  actualizar(event: string[]) {
+    console.log(this.filters.length);
     
-    this.jobServices.allJobs.subscribe({next: jobs => this.jobs = jobs})
-    this.filtros.forEach( filtro => {
-      this.jobs =  this.jobServices.getGeneralFilter(this.jobs, filtro);
-    })
+    // this.jobServices.allJobs.subscribe({
+    //   next: job => {
+    //     this.jobs = job;
+
+    //     this.filters.forEach( filtro => {
+    //       this.jobs =  this.jobServices.getGeneralFilter([...this.jobs], filtro);
+    //     })
+
+    //   }
+    // })
+    
+    this.jobServices.allJobs
+        .pipe(
+            map(jobs => {
+              this.filters.forEach(filter => {
+                jobs = this.jobServices.getGeneralFilter([...jobs],filter)
+              })
+              return jobs;
+            })
+        ).subscribe(
+            {
+              next: jobs => this.jobs = jobs
+            }
+    )
+    
   }
 
 }

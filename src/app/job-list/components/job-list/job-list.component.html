@@ -1,5 +1,5 @@
-<div *ngIf="filtros.length >0" class="bg-white w-11/12 max-w-5xl rounded-md mt-[-4rem] md:-mt-20 mx-auto mb-8 py-3 px-4 sm:px-6 shadow-md">
-    <app-table-filter [filtros]="filtros" (nueva)="actualizar($event)"></app-table-filter>
+<div *ngIf="filters.length >0" class="bg-white w-11/12 max-w-5xl rounded-md mt-[-4rem] md:-mt-20 mx-auto mb-8 py-3 px-4 sm:px-6 shadow-md">
+    <app-table-filter [filtros]="filters" (filterDelete)="actualizar($event)"></app-table-filter>
 </div>
 
 
